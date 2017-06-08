@@ -1,0 +1,22 @@
+■列出所有本地branch 
+  git branch
+■删除一个branch
+  git branch -d branchName
+■删除文件 
+  git rm fileName 
+  会从磁盘上删除一个文件,如果这个个文件也存在在index中,则index中的文件也一起删除. 
+  如果只想从index中删除文件,使用以下命令 
+  git rm --cached fileName
+■在一个工程中强制忽略某些文件的正确做法
+  ◆如果文件不想被git管理
+    应该使用.ignore文件(如果文件已经被git管理的话,.ignore文件不会生效)
+    →适用于IDE的配置文件,log文件等等
+  ◆如果文件被git管理
+    应该使用git update-index --skip-worktree fileName
+    这样文件虽然被GIT管理,但是本地的变更不会被提交,也不会被fetch的文件覆盖
+    →适用于数据库配置文件.每个人本地保存一份.
+  ※还有一个命令,可以说一说:git update-index --assume-unchanged fileName
+    这个命令适用于每次需要扫描大量文件,磁盘负担很重的情况下,暂时让git忽视某些文件,从而达到不提交这些文件的目的.
+    但是这个命令的致命弱点有两个
+    1)  需要团队中的每个人都执行这个命令
+    2)  文件会被fetch来的文件覆盖.一旦文件被fetch来的文件覆盖,则需要再次执行该命令,因为git会再次开始追踪此文件.
