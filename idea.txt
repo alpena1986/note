@@ -1,0 +1,6 @@
+■设置gradle的代理的方法
+　修改gradle.properties，添加以下
+　　systemProp.http.proxyHost=proxy.olympus.co.jp
+　　systemProp.http.proxyPort=8080
+　　systemProp.https.proxyHost=proxy.olympus.co.jp
+　　systemProp.https.proxyPort=8080
