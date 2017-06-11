@@ -1,0 +1,21 @@
+■JVM参数的初步理解
+  ◆整体
+    比如执行一个jar文件的时候,如果使用java命令,应该是如下语法
+      java -Dtest="true" -jar myApplication.jar
+    这里面,传递给被执行的程序的参数就是JVM Options.
+    也就是,JVM会拿着这些参数去启动这个程序.
+    JVM Options应该有很多中,-D开头的是其中一种.
+    -D开头的Option,对JVM没有意义(※这点不是百分百确定),对被执行的程序才有意义.
+    被执行的程序通过一下方法,可以取得被设置的Jvm Options.
+      System.getProperty("test");
+      
+  ◆Java和Tomcat的JVM Options
+    如"整体"中所说,对被执行的程序有意义.
+    Tomcat使用这个Option.
+    我们一般不使用命令行来启动Tomcat,所以我们一般也不直接设置Tomcat的JVM Options.
+    一般情况下,采用间接设定方法,即Tomcat固定会使用某一个环境变量作为JVM Options,而我们需要的就是取设置这个环境变量→CATALINA_OPTS.
+    类似地,JAVA_OPTS环境变量中所有的Options,会被传送到这个虚拟机上所有的程序中去.而这个程序是否使用这个Option,取决于这个程序.
+  
+  ◆对-Dfile.encoding的理解
+    只找到了一个解释,就是对Tomcat读或者写的文件的编码的生命.
+    这里面,文件应该是包含了流,也就是控制台.
