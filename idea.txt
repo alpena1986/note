@@ -5,9 +5,25 @@
 　　systemProp.https.proxyHost=proxy.olympus.co.jp
 　　systemProp.https.proxyPort=8080
 
+
 ■tomcat控制台输出中文乱码问题的解决
   1. 修改\JetBrains\IntelliJ IDEA 2017.1.3\bin下面的idea64.exe.vmoptions文件(如果为64位版本)
      在最后一行添加以下:-Dfile.encoding=UTF-8
   2. 在tomcat服务器的设置中,增加虚拟机启动参数:-Dfile.encoding=UTF-8
   3. 重新启动IDEA
   ※以上以IDEA 2017.1.3版本为例
+
+  
+■启动tomcat时,配制项目所依赖的jar包的方法
+  A) Tomcat在启动一个项目时候,只有两种方式去寻找该项目的jar包.
+   1. webapp下面项目本身文件夹里的lib文件夹中的jar包.
+   2. catalina.properties中指定的Loader的文件夹中的jar包.
+  B) 
+   1. IDEA中,默认的方式应该是上述的2.
+      也就是,打包的时候,会一同将maven中指定的dependency一起打进lib文件夹中.
+      关于打包的设置,在[Project Structure]→[Artifacts]中设置.
+      这里要注意的是,此处的设置就是maven中maven-war-plugin中所写的设置.两个设置是同步的.
+      在画面上进行的更改都会被pom.xml中所写的内容同步回去.
+   2. 如果不喜欢这种方式,可以使用上述的1.的方式.
+      这时,就可以在pom.xml中的maven-war-plugin的设置中,指定打包时不包含lib文件夹.
+  
