@@ -28,3 +28,8 @@
     上述命令中，--bare是创建一个不存在working tree的repo。
     --shared的默认是允许在同一个linux用户组的用户使用本repo。--shared后可以跟其他值，以设置不同的权限。
  3) 事先在本地创建好的repository的基础上，创建一个remote，既可以commit&push。
+ 
+■分支的track关系
+ 使用git branch -vv来查看各个分支对远程分支的track情况
+ ◆如果想要改变分支的track对象，需要先checkout该分支，然后使用以下命令
+   git branch --set-upstream-to origin/[分支名]
