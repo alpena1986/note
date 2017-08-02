@@ -1,0 +1,8 @@
+■Iterator的原理
+ 各种Iterator是ArrayList的非静态内部类,拥有对ArrayList对象的额指针,所以Iterator本质上是一个会移动的指针而已.Iterator对于数据的访问,
+ 是通过自身持有的对宿主的指针来完成.
+■Iterator的注意事项
+ 在获取Iterator和最后一次使用这个Iterator之间,宿主的ArrayList不可以单方面有数量变化.如果有数量变化,则会在调用Iterator.next()的时候异常.
+ 但是,调用Iterator的remove()方法除外.
+■增强的for循环的原理
+ 在对ArrayList使用增强的For循环时,编译器会自动转换成通过Iterator遍历.
