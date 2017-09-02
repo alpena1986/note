@@ -1,0 +1,23 @@
+源代码中所有的字符串常量，都会在运行时，被存放在一个常量表(在JDK1.6和之前，常量表也就是常量池在方法区中。)中。
+  →这里需要注意的是，代码中的直接的常量拼接，例如"ab" + "cd"，会在编译阶段就拼接完成。
+相对应地，会在堆中，创建常量表中所有字符串对应的对象，叫做拘留字符串对象。
+常量表和拘留字符串对象会对应起来。
+
+当String m = new String("abc")的时候，会找到"abc"对应的拘留字符串对象，用这个对象去调用String(String a)构造方法。
+  一个新的字符串对象被创建
+当String m = "abc"的时候，m会直接被指向"abc"的拘留字符串对象。
+
+StringBuffer是Java1.0时期就有的，线程安全。
+StringBuilder是Java1.5时出现，抛弃了线程安全，为了更高的效率。
+
+■String 变量的相加效率很低。
+ String a ="aaa";
+ String b ="bbb";
+ String c = a + b;
+ 原因是String的值（value[]成员）不可以改变。
+ 上例，是一个三步走的处理。
+  1. 会为a new一个StringBuilder
+  2. 然后调用StringBuilder的append(b)方法。
+  3. 最后调用StringBuilder的toString（）方法。
+ ※这里面效率低的原因，主要是创建了一个StringBuilder对象（消耗内存）
+   另外一个是在toString()的过程中，会创建新的String对象。
