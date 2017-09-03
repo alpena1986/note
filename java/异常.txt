@@ -1,0 +1,12 @@
+异常
+
+  JAVA中的Error（错误）和Exception（异常）。
+  ■Error仅在虚拟机中发生，用户无需在程序中捕捉或者抛出。
+   例如内存不足等硬件问题。
+  ■Exception分为两类
+   ◆checked exception
+     继承于Exception类，这类异常必须在编译阶段就给予处理。如果不处理，则需要在方法中声明throws
+   ◆unchecked exception
+     继承与RuntimeException类，这类异常无需在编译阶段处理。
+	 
+	 

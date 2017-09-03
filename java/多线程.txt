@@ -1,0 +1,23 @@
+关于线程的总结
+  
+  ■几种实现线程的方式
+   1. 继承Thread类
+   2. 实现Runnable接口
+   3. 使用Executor框架来创建线程池
+   
+   Thread的Runnable的关系如下。
+     ◆Thread类实现了Runnable接口，是Runnable的子类。
+	   也就是说，覆盖Thread.run()方法，本质上是覆盖了Runnable.run()方法。
+  
+  ■Thread类有两个独立的用法
+     1. 作为实现了Runnable接口的类，应用程序可以继承Thread类来实现线程。
+	 2. 完全不同的用法：
+	     作为其他线程类（继承了Runnable接口的类）的容器。
+	     帮助管理线程类的启动，结束等等。
+		 这种情形下，Thread类的run()方法会调用Thread对象中保存的其他线程类的run（）方法。
+		 也就是说，Thread.run()只是一个代理。
+		
+  ■Thread类和Runnable接口，继承哪个比较好？
+     Runnable比较好。继承了Thread类，就限制了线程类继承其他类的能力。
+	 
+  
