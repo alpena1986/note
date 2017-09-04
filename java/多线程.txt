@@ -14,10 +14,16 @@
 	 2. 完全不同的用法：
 	     作为其他线程类（继承了Runnable接口的类）的容器。
 	     帮助管理线程类的启动，结束等等。
-		 这种情形下，Thread类的run()方法会调用Thread对象中保存的其他线程类的run（）方法。
+		 这种情形下，Thread作为一个容器，自己的run()方法没有意义，自己的run()方法会调用Thread对象中保存的其他线程对象的run()方法。
 		 也就是说，Thread.run()只是一个代理。
 		
   ■Thread类和Runnable接口，继承哪个比较好？
      Runnable比较好。继承了Thread类，就限制了线程类继承其他类的能力。
 	 
-  
+  ■主线程等待多个子线程(t1,t2,t3)执行结束
+   三种方法
+     1. 使用t1.join()
+     2. 使用
+     3. 使用java.util.concurrent.CountDownLatch类
+        这个类的构造器，接受一个数字作为CountDown次数。这个数字不可更改。
+	
