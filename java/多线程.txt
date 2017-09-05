@@ -20,10 +20,37 @@
   ■Thread类和Runnable接口，继承哪个比较好？
      Runnable比较好。继承了Thread类，就限制了线程类继承其他类的能力。
 	 
-  ■主线程等待多个子线程(t1,t2,t3)执行结束
-   三种方法
-     1. 使用t1.join()
-     2. 使用
-     3. 使用java.util.concurrent.CountDownLatch类
-        这个类的构造器，接受一个数字作为CountDown次数。这个数字不可更改。
-	
+  ■主线程等待多个子线程(t1,t2,t3)执行结束
+   三种方法
+     1. 使用t1.join()
+     2. 使用
+     3. 使用java.util.concurrent.CountDownLatch类
+        这个类的构造器，接受一个数字作为CountDown次数。这个数字不可更改。
+		每个子线程都获得同一个CountDownLatch对象，并且在自己的finally段中调用该对象的countDown()方法。
+	    主线程调用await()方法来阻塞自己，直到CountDownLatch对象呗count down到了0.
+		※这里要注意的是，即使在主线程调用await()之前，子线程就已经结束了，也没有问题。
+		
+		
+  ■CountDownLatch和CyclicBarrier的不同点
+   1. CountDownLatch是一次性使用的，而CyclicBarrier是可以重复使用的。
+   2. CyclicBarrier可以指定一个线程，在达到CyclicBarrier阈值时这个线程将被执行。
+   3. CountDownLatch只需要有一个线程调用await()方法，而且子线程个数没有限制，只要countDown()被调用了指定次数就好。
+      CyclicBarrier要求每一个线程都必须调用await()方法，每一个线程都陷入阻塞，也就是堆子线程个数有严格要求。
+	  
+  ■Thread.join()方法和CountDownLatch的用法区别
+   他们在本质上没有不同。Thread.join()是直接操作线程时的用法。
+   但是大多数人选择不直接操作线程，而是直接使用ExecutorService来生成线程池。这是Thread结构被隐藏，只能使用CountDownLatch。
+   
+   
+================================================
+
+ ExecutorService
+  ■submit方法和execute方法
+   1. submit方法返回一个Future对象，可以取得线程的返回值。
+     ※使用Future.get()方法来取得线程的返回值。get()时线程会阻塞。
+   2. submit方法吃掉了子线程的异常。
+     在调用get（）方法时产生一个ExecuteException，里面的getCause方法带着异常信息。
+	  execute方法执行的线程产生的异常会导致UncaughtExceptionHandler方法被执行。
+	  应用程序可以继承UncaughtExceptionHander类，并且调用Thread.setUncaughtExceptionHandler()方法来处理异常。
+	 
+    
